@@ -25,8 +25,17 @@ fun main() {
         calories += it.toInt()
     }
 
-    val elfsSortedByCalories = elfs.toSortedSet(compareBy { it.calories })
+    val sortedByCalories = elfs.toSortedSet(compareByDescending { it.calories })
 
     println("MutableCollection<Elf>.size = " + elfs.size)
-    println("SortedSet<Elf>.last() = " + elfsSortedByCalories.last())
+    println("SortedSet<Elf>.first()      = " + sortedByCalories.first())
+    println("Elf[0]                      = " + sortedByCalories.first())
+    println("Elf[1]                      = " + sortedByCalories.drop(1).first())
+    println("Elf[2]                      = " + sortedByCalories.drop(2).first())
+
+    val top3Calories: Int =
+        sortedByCalories.first().calories + sortedByCalories.drop(1).first().calories + sortedByCalories.drop(2)
+            .first().calories
+
+    println("Elf[0-3]                    = $top3Calories")
 }
