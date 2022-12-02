@@ -3,11 +3,12 @@ package DayOne
 import java.io.File
 
 fun main() {
+    // @todo create an utility class
     val elves: List<Int> = File("src/main/kotlin/DayOne/input.txt")
         .readText()
         .split("\n\n")
         .map { elf -> elf.lines().sumOf { it.toInt() } }
 
-    println("Lit<Int>.maxOf { it }      = " + elves.max())
-    println("Elves.take(3).sumOf { it } = " + elves.sortedDescending().take(3).sum())
+    println("List<Int>.max()         = " + elves.max())
+    println("List<Int>.take(3).sum() = " + elves.sortedDescending().take(3).sum())
 }
