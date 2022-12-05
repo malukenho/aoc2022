@@ -4,6 +4,7 @@ import Util.readInput
 
 private fun Char.toScore(): Int = if (this.isLowerCase()) this - '`' else this - '&'
 infix fun String.intersect(other: String) = this.toSet() intersect other.toSet()
+infix fun Set<Char>.intersect(other: String) = this.toSet() intersect other.toSet()
 
 class Rucksack(val items: String) {
     private val boundary = (items.length / 2) - 1
@@ -20,9 +21,9 @@ class Group(private val elves: List<Rucksack>) {
     }
         .flatten()
         .distinct()
-        .first()
+        .single()
 
-    val groupToken = if (tokenItem.isLowerCase()) tokenItem.code - 96 else tokenItem.code - 38
+    val groupToken = tokenItem.toScore()
 }
 
 fun main() {
