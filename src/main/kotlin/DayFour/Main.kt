@@ -10,10 +10,10 @@ private fun String.lastSection() = this.split('-').last().toInt()
 
 private fun String.expandRange(): IntRange = IntRange(this.firstSection(), this.lastSection())
 
-private fun List<IntRange>.hasOverlappingSections() =
+private fun List<IntRange>.hasEncompassingSection() =
     this.first().subtract(this.last()).isEmpty() || this.last().subtract(this.first()).isEmpty()
 
-private fun List<IntRange>.hasEncompassingSection() =
+private fun List<IntRange>.hasOverlappingSection() =
     this.first().subtract(this.last()).size != this.first().count()
 
 fun main() {
@@ -22,7 +22,7 @@ fun main() {
             .lines()
             .map { it.splitOnComma() }
             .map { elves -> elves.map { it.expandRange() } }
-            .count { elves -> elves.hasOverlappingSections() }
+            .count { elves -> elves.hasEncompassingSection() }
     }
 
     check(2 == part1(readExample(4)))
@@ -33,7 +33,7 @@ fun main() {
             .lines()
             .map { it.splitOnComma() }
             .map { elves -> elves.map { it.expandRange() } }
-            .count { elves -> elves.hasEncompassingSection() }
+            .count { elves -> elves.hasOverlappingSection() }
     }
 
     check(4 == part2(readExample(4)))
