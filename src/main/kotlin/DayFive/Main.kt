@@ -6,43 +6,65 @@ import Util.readInput
 fun main() {
     fun String.splitGridFromInstruction(): List<String> = this.split("\n\n")
     fun String.trimBox(): String = this.trim().trimStart('[').trimEnd(']')
+    fun MutableList<MutableList<String>>.render(): String = this.map { it.last() }.reduce { acc, s -> acc + s }
+    fun String.breakUpInstruction(): List<List<String>> = this.lines()
+        .map { it.split(Regex("\\D+")) }
+        .map { list -> list.filter { it.isNotBlank() } }
 
-    fun part1(input: String): String {
-        val (grid, instructions) = input.splitGridFromInstruction()
-
-        val items = grid.lines().dropLast(1).map { it.chunked(4).toMutableList() }.toMutableList()
-
+    fun parseGrid(grid: String): MutableList<MutableList<String>> {
         val normalizedGrip = mutableListOf<MutableList<String>>()
 
-        items.forEach { i ->
-            i.forEachIndexed { column, item ->
-                if (normalizedGrip.getOrNull(column).isNullOrEmpty()) {
-                    normalizedGrip.add(column, mutableListOf())
+        grid.lines().dropLast(1).map { it.chunked(4) }
+            .forEach { i ->
+                i.forEachIndexed { column, item ->
+                    if (normalizedGrip.getOrNull(column).isNullOrEmpty()) {
+                        normalizedGrip.add(column, mutableListOf())
+                    }
+                    normalizedGrip.get(column).add(item.trimBox())
                 }
-                normalizedGrip.get(column).add(item.trimBox())
             }
-        }
 
-        val finalGrid = normalizedGrip.map { a -> a.filter { it.isNotEmpty() }.toMutableList() }
-            .toMutableList()
+        return normalizedGrip.map { list -> list.filter { it.isNotEmpty() }.toMutableList() }.toMutableList()
             .map { it.asReversed() }.toMutableList()
+    }
 
-        val movements = instructions.lines()
-            .map { it.split(Regex("\\D+")) }
-            .map { it.filter { it.isNotBlank() } }
+    fun part1(input: String): String {
+        val (rawGridData, rawInstructionsData) = input.splitGridFromInstruction()
+
+        val grid = parseGrid(rawGridData)
+        val movements = rawInstructionsData.breakUpInstruction()
 
         movements.forEach { movement ->
             val (quantity, from, to) = movement
 
             IntRange(1, quantity.toInt()).forEach { _ ->
-                finalGrid[to.toInt() - 1].add(finalGrid[from.toInt() - 1].last())
-                finalGrid[from.toInt() - 1] = finalGrid[from.toInt() - 1].dropLast(1).toMutableList()
+                grid[to.toInt() - 1].add(grid[from.toInt() - 1].last())
+                grid[from.toInt() - 1] = grid[from.toInt() - 1].dropLast(1).toMutableList()
             }
         }
 
-        return finalGrid.map { it.last() }.reduce { acc, s -> acc + s }
+        return grid.render()
     }
 
     check("CMZ" == part1(readExample(5)))
     check("GRTSWNJHH" == part1(readInput(5)))
+
+    fun part2(input: String): String {
+        val (rawGridData, rawInstructionsData) = input.splitGridFromInstruction()
+
+        val grid = parseGrid(rawGridData)
+        val movements = rawInstructionsData.breakUpInstruction()
+
+        movements.forEach { movement ->
+            val (quantity, from, to) = movement
+
+            grid[to.toInt() - 1].addAll(grid[from.toInt() - 1].takeLast(quantity.toInt()).toMutableList())
+            grid[from.toInt() - 1] = grid[from.toInt() - 1].dropLast(quantity.toInt()).toMutableList()
+        }
+
+        return grid.render()
+    }
+
+    check("MCD" == part2(readExample(5)))
+    check("QLFQDBBHM" == part2(readInput(5)))
 }
