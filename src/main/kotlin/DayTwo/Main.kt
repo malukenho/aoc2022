@@ -10,7 +10,7 @@ enum class Played(val played: Int) {
 
 fun main() {
 //    val elves = "B X\nC Y\nA Z\nA X\nB Y\nC Z\nC X\nA Y\nB Z"
-    val elves = File("src/main/kotlin/DayTwo/input.txt").readText()
+    val elves = File("src/main/kotlin/DayTwo/input-1.txt").readText()
         .lines()
         .map { it.split(" ") }
         .map { match -> match.map { Played.valueOf(it).played } }
