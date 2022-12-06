@@ -5,8 +5,14 @@ import Util.readInput
 
 fun main() {
     fun String.splitGridFromInstruction(): List<String> = this.split("\n\n")
+
     fun String.trimBox(): String = this.trim().trimStart('[').trimEnd(']')
-    fun MutableList<MutableList<String>>.render(): String = this.map { it.last() }.reduce { acc, s -> acc + s }
+
+    fun MutableList<MutableList<String>>.render(): String = this.map { it.last() }
+        .reduce { acc, s -> acc + s }
+
+    fun MutableList<MutableList<String>>.locate(index: String): MutableList<String> = this[index.toInt() - 1]
+
     fun String.breakUpInstruction(): List<List<String>> = this.lines()
         .map { it.split(Regex("\\D+")) }
         .map { list -> list.filter { it.isNotBlank() } }
@@ -38,8 +44,8 @@ fun main() {
             val (quantity, from, to) = movement
 
             IntRange(1, quantity.toInt()).forEach { _ ->
-                grid[to.toInt() - 1].add(grid[from.toInt() - 1].last())
-                grid[from.toInt() - 1] = grid[from.toInt() - 1].dropLast(1).toMutableList()
+                grid.locate(to).add(grid.locate(from).last())
+                grid[from.toInt() - 1] = grid.locate(from).dropLast(1).toMutableList()
             }
         }
 
@@ -58,8 +64,8 @@ fun main() {
         movements.forEach { movement ->
             val (quantity, from, to) = movement
 
-            grid[to.toInt() - 1].addAll(grid[from.toInt() - 1].takeLast(quantity.toInt()).toMutableList())
-            grid[from.toInt() - 1] = grid[from.toInt() - 1].dropLast(quantity.toInt()).toMutableList()
+            grid.locate(to).addAll(grid.locate(from).takeLast(quantity.toInt()).toMutableList())
+            grid[from.toInt() - 1] = grid.locate(from).dropLast(quantity.toInt()).toMutableList()
         }
 
         return grid.render()
