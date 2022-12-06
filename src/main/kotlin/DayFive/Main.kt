@@ -26,7 +26,7 @@ fun main() {
                     if (normalizedGrip.getOrNull(column).isNullOrEmpty()) {
                         normalizedGrip.add(column, mutableListOf())
                     }
-                    normalizedGrip.get(column).add(item.trimBox())
+                    normalizedGrip[column].add(item.trimBox())
                 }
             }
 
