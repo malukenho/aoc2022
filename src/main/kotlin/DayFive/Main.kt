@@ -8,8 +8,7 @@ fun main() {
 
     fun String.trimBox(): String = this.trim().trimStart('[').trimEnd(']')
 
-    fun MutableList<MutableList<String>>.render(): String = this.map { it.last() }
-        .reduce { acc, s -> acc + s }
+    fun MutableList<MutableList<String>>.render(): String = this.joinToString("") { it.last() }
 
     fun MutableList<MutableList<String>>.locate(index: String): MutableList<String> = this[index.toInt() - 1]
 
@@ -42,11 +41,7 @@ fun main() {
 
         movements.forEach { movement ->
             val (quantity, from, to) = movement
-
-            IntRange(1, quantity.toInt()).forEach { _ ->
-                grid.locate(to).add(grid.locate(from).last())
-                grid[from.toInt() - 1] = grid.locate(from).dropLast(1).toMutableList()
-            }
+            repeat(quantity.toInt()) { grid.locate(to).add(grid.locate(from).removeLast()) }
         }
 
         return grid.render()
@@ -64,7 +59,7 @@ fun main() {
         movements.forEach { movement ->
             val (quantity, from, to) = movement
 
-            grid.locate(to).addAll(grid.locate(from).takeLast(quantity.toInt()).toMutableList())
+            grid.locate(to).addAll(grid.locate(from).takeLast(quantity.toInt()))
             grid[from.toInt() - 1] = grid.locate(from).dropLast(quantity.toInt()).toMutableList()
         }
 
