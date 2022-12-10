@@ -1,4 +1,4 @@
-package DayFive
+package com.github.malukenho.aoc2022
 
 import Util.readExample
 import Util.readInput
