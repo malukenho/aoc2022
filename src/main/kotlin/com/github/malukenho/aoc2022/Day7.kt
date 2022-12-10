@@ -1,9 +1,6 @@
 package com.github.malukenho.aoc2022
 
-import Util.readExample
-import Util.readInput
-
-class Day7(val list: List<String>) {
+class Day7(list: List<String>) {
     var sizes : MutableMap<String, Int> = mutableMapOf()
 
     init {
@@ -11,7 +8,7 @@ class Day7(val list: List<String>) {
         structure.put("", 0)
         var pwd = "/"
 
-        fun shell(command: String): Unit {
+        fun shell(command: String) {
 
             if (command.startsWith("ls")) return
             if (command.startsWith("dir")) return
@@ -55,18 +52,4 @@ class Day7(val list: List<String>) {
         val total = sizes.getValue("")
         return sizes.values.asSequence().filter { 70000000 - (total - it) >= 30000000}.min()
     }
-}
-fun main() {
-
-    val example = Day7(readExample(7).lines())
-
-    check(94853 == example.sizes.get("/a")) { "Wrong /a size." }
-    check(584 == example.sizes.get("/a/e")) { "Wrong /e size." }
-    check(24933642 == example.sizes.get("/d")) { "Wrong /d size." }
-    check(48381165 == example.sizes.get("")) { "Wrong total size." }
-
-    val solution = Day7(readInput(7).lines())
-
-    check(1582412 == solution.part1())
-    check(3696336 == solution.part2())
 }
