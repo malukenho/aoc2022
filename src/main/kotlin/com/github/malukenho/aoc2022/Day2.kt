@@ -1,6 +1,6 @@
-package DayTwo
+package com.github.malukenho.aoc2022
 
-import java.io.File
+import Util.readInput
 
 enum class Played(val played: Int) {
     A(1), X(1),
@@ -10,7 +10,7 @@ enum class Played(val played: Int) {
 
 fun main() {
 //    val elves = "B X\nC Y\nA Z\nA X\nB Y\nC Z\nC X\nA Y\nB Z"
-    val elves = File("src/main/kotlin/DayTwo/input-1.txt").readText()
+    val elves = readInput(2)
         .lines()
         .map { it.split(" ") }
         .map { match -> match.map { Played.valueOf(it).played } }

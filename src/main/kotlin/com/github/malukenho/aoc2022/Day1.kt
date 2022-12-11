@@ -1,4 +1,4 @@
-package DayOne
+package com.github.malukenho.aoc2022
 
 import Util.readInput
 
