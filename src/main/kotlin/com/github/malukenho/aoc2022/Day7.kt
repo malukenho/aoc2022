@@ -1,7 +1,7 @@
 package com.github.malukenho.aoc2022
 
-class Day7(list: List<String>) {
-    var sizes : MutableMap<String, Int> = mutableMapOf()
+sealed class Day7(list: List<String>) {
+    private var sizes : MutableMap<String, Int> = mutableMapOf()
 
     init {
         var structure = mutableMapOf<String, Int>()
