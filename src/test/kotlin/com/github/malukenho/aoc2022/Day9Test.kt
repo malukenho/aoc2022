@@ -11,6 +11,12 @@ class Day9Test {
         assertEquals(Day9(readInput(9).lines()).part1(), 6314)
     }
 
+    @Test
+    fun part2() {
+        assertEquals(Day9(SAMPLE_INPUT).part2(), 1)
+        assertEquals(Day9(readInput(9).lines()).part2(), 2504)
+    }
+
     companion object {
         private val SAMPLE_INPUT = listOf(
             "R 4",

@@ -5,6 +5,7 @@ class Day9(list: List<String>) {
     operator fun Pair<Int, Int>.plus(o: Pair<Int, Int>) = Pair(this.first + o.first, this.second + o.second)
 
     private val visited: MutableSet<Pair<Int, Int>> = mutableSetOf()
+    private val visited2: MutableSet<Pair<Int, Int>> = mutableSetOf()
     private val rope = MutableList(10) { Pair(0, 0) }
 
     private val loopUp = mapOf(
@@ -35,5 +36,22 @@ class Day9(list: List<String>) {
         }
 
         return visited.size
+    }
+
+    fun part2(): Int {
+        for (instruction in instructions) {
+            for (move in 1..instruction.quantity) {
+                rope[0] = rope[0] + instruction.direction
+                for (i in 0..rope.size-2) {
+                    val dx = rope[i].first - rope[i+1].first
+                    val dy = rope[i].second - rope[i+1].second
+                    if (Math.abs(dx) >= 2 || Math.abs(dy) >= 2)
+                        rope[i+1] = rope[i+1] + Pair(dx.coerceIn(-1..1), dy.coerceIn(-1..1))
+                }
+                visited2.add(rope.last())
+            }
+        }
+
+        return visited2.size
     }
 }
