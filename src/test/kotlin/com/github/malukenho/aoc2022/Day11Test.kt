@@ -7,8 +7,14 @@ import org.testng.annotations.Test
 class Day11Test {
     @Test
     fun part1() {
-        assertEquals(Day11(SAMPLE_INPUT).part1(20), 10605)
-        assertEquals(Day11(readInput(11)).part1(20), 50172)
+        assertEquals(Day11(SAMPLE_INPUT).part1(20), 10605L)
+        assertEquals(Day11(readInput(11)).part1(20), 50172L)
+    }
+
+    @Test
+    fun part2() {
+        assertEquals(Day11(SAMPLE_INPUT).part2(10_000), 2713310158L)
+        assertEquals(Day11(readInput(11)).part2(10_000), 11614682178L)
     }
 
     companion object {
