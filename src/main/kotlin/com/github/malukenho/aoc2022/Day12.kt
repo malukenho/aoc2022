@@ -57,4 +57,57 @@ class Day12(val input: String) { // Trying to solve it with a BFS
 
         return result
     }
+
+    fun part2(): Int { // I did the reverse path here
+        val grid = maze
+
+        var end = Pair(0, 0)
+        grid.forEachIndexed { xsi, xs ->
+            xs.forEachIndexed { xzi, xz ->
+                if (xz == "S") {
+                    grid[xsi][xzi] = "a" // I've changed this one just to avoid create a special case for "S"
+                }
+                if (xz == "E") {
+                    end = Pair(xsi, xzi)
+                    grid[xsi][xzi] = "z" // Same here
+                }
+            }
+        }
+
+        // Add values to the queue
+        val deque = ArrayDeque<Triple<Int, Int, Int>>()
+        deque.add(Triple(0, end.first, end.second))
+
+        // We need a visited set as well
+        val visited = mutableSetOf<Pair<Int, Int>>()
+        visited.add(Pair(end.first, end.second))
+
+        var result = 0
+
+        while (deque.isNotEmpty()) {
+            val (distance, r, c) = deque.removeFirst()
+            listOf(
+                Pair(r + 1, c), Pair(r - 1, c), Pair(r, c + 1), Pair(r, c - 1)
+            ).forEach { t ->
+                val nr = t.first
+                val nc = t.second
+
+                if (nr < 0 || nc < 0 || nr >= grid.size || nc >= grid[0].size) return@forEach
+                if (visited.contains(t)) return@forEach
+                if ((grid[nr][nc].toCharArray()[0].code - grid[r][c].toCharArray()[0].code) < -1) {
+                    return@forEach
+                }
+                if (grid[nr][nc] == "a") {
+                    if (result == 0) { // not set
+                        result = distance + 1
+                    }
+                    return@forEach
+                }
+                visited.add(t)
+                deque.add(Triple(distance + 1, nr, nc))
+            }
+        }
+
+        return result
+    }
 }

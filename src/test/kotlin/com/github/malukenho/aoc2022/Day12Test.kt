@@ -11,6 +11,12 @@ class Day12Test {
         assertEquals(391, Day12(readInput(12)).part1())
     }
 
+    @Test
+    fun part2() {
+        assertEquals(29, Day12(SAMPLE_INPUT).part2())
+        assertEquals(386, Day12(readInput(12)).part2())
+    }
+
     companion object {
         private const val SAMPLE_INPUT =
             "Sabqponm\n" +
