@@ -5,19 +5,15 @@ import org.testng.Assert.assertEquals
 import org.testng.annotations.Test
 
 class Day13Test {
-    fun String.toIterator() = this.chunked(1).filter { x -> x != "," }.filter(String::isNotBlank).iterator()
+    private fun String.toIterator() =
+            this.split("""((?<=[\[\],])|(?=[\[\],]))""".toRegex())
+                .filter { it.isNotBlank() }
+                .filter { it != "," }
+                .iterator()
 
     @Test
     fun parser() {
-        assertEquals(
-            Day12(SAMPLE_INPUT).parser("[[1, [2, [3], 6], 3, 5], [4, [6], 5]]".toIterator()).toString(),
-            "[[[1, [2, [3], 6], 3, 5], [4, [6], 5]]]"
-        )
-
-        assertEquals(
-            Day12(SAMPLE_INPUT).parser("[[1],4]".toIterator()).toString(),
-            "[[[1], 4]]"
-        )
+        assertEquals(Day13(SAMPLE_INPUT).parser("[[1],4]".toIterator()).toString(), "[[[1], 4]]")
     }
 
     companion object {
