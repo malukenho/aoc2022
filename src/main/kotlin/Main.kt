@@ -10,15 +10,8 @@ fun main() {
     factorial(30).also(::println)
 
     fun countDownAndUp(number: Int) {
-        println(number)
-        if (number == 0) {
-            println("Reached the base case.")
-            return
-        } else {
-            countDownAndUp(number - 1)
-            println("$number returning")
-            return
-        }
+        if (number == 0) return
+        else { countDownAndUp(number - 1); return }
     }
 
     countDownAndUp(3)
