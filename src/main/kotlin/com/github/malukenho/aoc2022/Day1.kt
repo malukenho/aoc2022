@@ -1,13 +1,9 @@
 package com.github.malukenho.aoc2022
 
-import Util.readInput
+class Day1(text: String) {
+    private val elves: List<Int> =
+        text.split("\n\n").map { elf -> elf.lines().sumOf { it.toInt() } }.sortedDescending()
 
-fun main() {
-    val elves: List<Int> = readInput(1)
-        .split("\n\n")
-        .map { elf -> elf.lines().sumOf { it.toInt() } }
-        .sortedDescending()
-
-    println("List<Int>.first()       = " + elves.first())
-    println("List<Int>.take(3).sum() = " + elves.take(3).sum())
+    fun part1() = elves.first()
+    fun part2() = elves.take(3).sum()
 }
