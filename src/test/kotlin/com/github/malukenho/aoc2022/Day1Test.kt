@@ -15,7 +15,7 @@ class Day1Test {
     }
 
     companion object {
-        private val SAMPLE_INPUT =
+        private const val SAMPLE_INPUT =
             "1000\n" +
             "2000\n" +
             "3000\n" +
