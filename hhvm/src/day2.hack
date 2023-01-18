@@ -22,7 +22,7 @@ function map_to_values(string $value): int {
 function process_input(string $input): array<array<int>> {
     return $input
         |> \lines($$)
-        |> \array_map($x ==> explode(" ", $x), $$)
+        |> \array_map($x ==> \explode(" ", $x), $$)
         |> \array_map($x ==> \array_map($k ==> map_to_values($k), $x), $$)
     ;
 }
