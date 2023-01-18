@@ -7,7 +7,7 @@ Development occurs in language-specific directories:
 |                    [HHVM](hhvm) |                                                     [Kotlin](src) |
 |--------------------------------:|------------------------------------------------------------------:|
 | [Day1.hack](hhvm/src/Day1.hack) |   [Day1.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day1.kt) |
-|                       Day2.hack |   [Day2.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day2.kt) |
+| [Day2.hack](hhvm/src/day2.hack) |   [Day2.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day2.kt) |
 |                       Day3.hack |   [Day3.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day3.kt) |
 |                       Day4.hack |   [Day4.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day4.kt) |
 |                       Day5.hack |   [Day5.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day5.kt) |
