@@ -1,56 +1,37 @@
-
-sealed class Option<out T> {
-    data class Some<out T>(val value: T) : Option<T>()
-    object None: Option<Nothing>()
-}
-
-class Account(val accountId: String, var balance: Double) {
-    fun deposit(amount: Double): Option<Account> {
-        balance += amount
-        return Option.Some(this)
-    }
-
-    fun withdraw(amount: Double): Option<Account> {
-        if (amount > balance) return Option.None
-        balance -= amount
-        return Option.Some(this)
-    }
-
-    fun transfer(amount: Double, toAccount: Account): Option<Account> {
-        return withdraw(amount).flatMap {
-            toAccount.deposit(amount)
-        }
-    }
-}
-
-fun <T, R> Option<T>.flatMap(f: (T) -> Option<R>): Option<R> {
-    return when(this) {
-        is Option.Some -> f(value)
-        is Option.None -> Option.None
-    }
-}
-
 fun main() {
-    val account1 = Account("Account1", 1000.0)
-    val account2 = Account("Account2", 0.0)
-    val amount = 500.0
+    val image = arrayOf(
+        "..▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓...........".split("").toMutableList(),
+        "..▓......................▓...▓▓▓▓▓...".split("").toMutableList(),
+        "..▓..........▓▓▓▓▓▓▓▓....▓▓▓▓▓...▓...".split("").toMutableList(),
+        "..▓..........▓......▓............▓...".split("").toMutableList(),
+        "..▓..........▓▓▓▓▓▓▓▓.........▓▓▓▓...".split("").toMutableList(),
+        "..▓▓▓▓▓▓......................▓......".split("").toMutableList(),
+        ".......▓..▓▓▓▓▓.....▓▓▓▓▓▓▓▓▓▓▓......".split("").toMutableList(),
+        ".......▓▓▓▓...▓▓▓▓▓▓▓................".split("").toMutableList(),
+    )
 
-    val depositResult = account1.deposit(amount)
-    val withdrawResult = account1.withdraw(amount)
-    val transferResult = account1.transfer(amount, account2)
+    fun paint(image: Array<MutableList<String>>, x: Int, y: Int, symbol: String): Array<MutableList<String>> {
+        if (image.getOrNull(x)?.getOrNull(y) == null || image[x][y] == symbol || image[x][y] == "▓") {
+            return image
+        }
 
-    when (depositResult) {
-        is Option.Some -> println("Deposited $amount to ${depositResult.value.accountId}")
-        is Option.None -> println("Deposit failed")
+        image[x][y] = symbol;
+
+        var imagem = paint(image, x, y - 1, symbol)
+        imagem = paint(imagem, x, y + 1, symbol)
+        imagem = paint(imagem, x + 1, y, symbol)
+        imagem = paint(imagem, x - 1, y, symbol)
+
+        return imagem
     }
 
-    when (withdrawResult) {
-        is Option.Some -> println("Withdrew $amount from ${withdrawResult.value.accountId}")
-        is Option.None -> println("Withdrawal failed")
-    }
+    paint(image, 3, 16, "░").joinToString("\n") { it.joinToString("") }.also(::println)
 
-    when (transferResult) {
-        is Option.Some -> println("Transferred $amount from ${transferResult.value.accountId} to ${account2.accountId}")
-        is Option.None -> println("Transfer failed")
-    }
+    println("\n\n")
+
+//    paint(image, 6, 3, "░").joinToString("\n") { it.joinToString("") }.also(::println)
+//
+//    println("\n\n")
+//
+//    paint(image, 1, 7, "░").joinToString("\n") { it.joinToString("") }.also(::println)
 }
