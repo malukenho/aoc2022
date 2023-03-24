@@ -1,5 +1,7 @@
 package com.github.malukenho.aoc2022
 
+import kotlin.math.abs
+
 class Day9(list: List<String>) {
 
     operator fun Pair<Int, Int>.plus(o: Pair<Int, Int>) = Pair(this.first + o.first, this.second + o.second)
@@ -28,7 +30,7 @@ class Day9(list: List<String>) {
                 for (i in 0..rope.size-2) {
                     val dx = rope[i].first - rope[i+1].first
                     val dy = rope[i].second - rope[i+1].second
-                    if (Math.abs(dx) >= 2 || Math.abs(dy) >= 2)
+                    if (abs(dx) >= 2 || abs(dy) >= 2)
                         rope[i+1] = rope[i+1] + Pair(dx.coerceIn(-1..1), dy.coerceIn(-1..1))
                 }
                 visited.add(rope[1])
