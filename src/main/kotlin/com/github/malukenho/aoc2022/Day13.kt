@@ -3,11 +3,11 @@ package com.github.malukenho.aoc2022
 class Day13(val input: String) {
 
     private val lists = input.split("\n")
-        .filter { !it.isEmpty() }
+        .filter { it.isNotEmpty() }
         .map { it.parseLists() }
         .toMutableList()
 
-    fun String.parseLists(): Any {
+    private fun String.parseLists(): Any {
         val stack: MutableList<MutableList<Any>> = mutableListOf(mutableListOf())
         this.replace("]", ",}").replace("[", "{,").replace(",,", ",").split(",").forEach {
             when (it) {
@@ -32,6 +32,7 @@ class Day13(val input: String) {
 
     fun part1(): Int {
         return lists
+            .asSequence()
             .chunked(2)
             .withIndex()
             .filter { (_, pair) -> cmp(pair[0], pair[1]) <= 0 }
