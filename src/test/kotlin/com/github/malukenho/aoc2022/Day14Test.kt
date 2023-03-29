@@ -8,8 +8,8 @@ class Day14Test {
 
     @Test
     fun part1() {
-//        assertEquals(Day14(SAMPLE_INPUT).part1(), 24)
-        assertEquals(Day14(readInput(14)).part1(), 5659)
+        assertEquals(Day14(SAMPLE_INPUT).part1(), 24)
+//        assertEquals(Day14(readInput(14)).part1(), 5659)
     }
 
     companion object {
