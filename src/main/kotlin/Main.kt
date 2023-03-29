@@ -24,7 +24,7 @@ fun main() {
 
     concat(listOf("He", "l", "lo", " Wor", "ld!")).also(::println)
 
-    fun countRooms = TODO("Create an algo to count rooms in a maze.")
+    fun countRooms(): Nothing = TODO("Create an algo to count rooms in a maze.")
 
     val image = arrayOf(
         "..▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓...........".split("").toMutableList(),

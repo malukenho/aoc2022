@@ -1,34 +1,17 @@
 package com.github.malukenho.aoc2022
 
-import org.testng.Assert.assertEquals
-import org.testng.annotations.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class Day1Test {
+
+class Day2Test {
+
     @Test
     fun part1() {
-        assertEquals(Day1(SAMPLE_INPUT).part1(), 24000)
-    }
-
-    @Test
-    fun part2() {
-        assertEquals(Day1(SAMPLE_INPUT).part2(), 45000)
+      //  assertEquals(Day2(SAMPLE_INPUT).part1(), 10595)
     }
 
     companion object {
-        private const val SAMPLE_INPUT =
-            "1000\n" +
-            "2000\n" +
-            "3000\n" +
-            "\n" +
-            "4000\n" +
-            "\n" +
-            "5000\n" +
-            "6000\n" +
-            "\n" +
-            "7000\n" +
-            "8000\n" +
-            "9000\n" +
-            "\n" +
-            "10000"
+        private const val SAMPLE_INPUT = "B X\nC Y\nA Z\nA X\nB Y\nC Z\nC X\nA Y\nB Z"
     }
 }

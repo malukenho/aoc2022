@@ -1,8 +1,9 @@
 package com.github.malukenho.aoc2022
 
 import Util.readInput
-import org.testng.Assert.assertEquals
-import org.testng.annotations.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
 
 class Day9Test {
     @Test

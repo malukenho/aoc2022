@@ -9,7 +9,7 @@ fun Cave.getXY(x: Int, y: Int) = this.getOrNull(x)?.getOrNull(y)
 
 fun CoordinateList.max() = this.flatMap { map -> map.map { it.first } }.max()
 fun CoordinateList.min() = this.flatMap { map -> map.map { it.first } }.min()
-fun CoordinateList.rowsRange() = 0 .. this.flatMap { map -> map.map { it.second } }.max()
+fun CoordinateList.rowsRange() = 0..this.flatMap { map -> map.map { it.second } }.max()
 
 class Day14(val input: String) {
 
@@ -27,12 +27,10 @@ class Day14(val input: String) {
         println(it.joinToString("") { that -> that.second })
     }
 
-    fun part1(): Int {
-        // @TODO("Which name better reflects the problem proposed domain?")
+    fun part1(): Int { // @TODO("Which name better reflects the problem proposed domain?")
 
         println(routes.rowsRange())
-        println(columns)
-        // Create a cave
+        println(columns) // Create a cave
         var cave: Cave = routes.rowsRange().map {
             columns.map { column -> Pair(column, ".") }.toMutableList()
         }.toMutableList()
@@ -70,20 +68,17 @@ class Day14(val input: String) {
 
         val source = 500
         var iterations = 0
-        tailrec fun dropSand(cave: Cave, fallingX: Int, fallingY: Int, initial: Int): Cave {
+        fun dropSand(cave: Cave, fallingX: Int, fallingY: Int, initial: Int): Cave {
 
             val currentChar = cave.getXY(fallingX, fallingY)?.second
-
-            if (currentChar == null) {
-                return dropSand(cave, 0, initial, initial)
-            }
+                ?: return dropSand(cave, 0, initial, initial)
 
             if (0 == fallingX && initial == fallingY && currentChar == "o") {
                 return cave
             }
 
             if (currentChar == ".") {
-                return dropSand(cave, fallingX+1, fallingY, initial)
+                return dropSand(cave, fallingX + 1, fallingY, initial)
             }
 
             // Sand is already there
@@ -96,11 +91,11 @@ class Day14(val input: String) {
                 }
 
                 if (downLeftChar == ".") {
-                    return dropSand(cave, fallingX+1, fallingY - 1, initial)
+                    return dropSand(cave, fallingX + 1, fallingY - 1, initial)
                 }
 
                 if (downRightChar == ".") {
-                    return dropSand(cave, fallingX+1, fallingY + 1, initial)
+                    return dropSand(cave, fallingX + 1, fallingY + 1, initial)
                 }
 
                 if (downLeftChar == "o" && downRightChar == "o") {
@@ -118,12 +113,12 @@ class Day14(val input: String) {
                 }
 
                 // look left
-                if (downLeftChar == "o" && cave.getXY(fallingX-1, fallingY - 1)?.second == ".") {
-                    return dropSand(cave, fallingX, fallingY-1, initial)
+                if (downLeftChar == "o" && cave.getXY(fallingX - 1, fallingY - 1)?.second == ".") {
+                    return dropSand(cave, fallingX, fallingY - 1, initial)
                 }
 
-                if (downLeftChar == "#" && cave.getXY(fallingX+1, fallingY - 1)?.second == ".") {
-                   return dropSand(cave, fallingX, fallingY-1, initial)
+                if (downLeftChar == "#" && cave.getXY(fallingX + 1, fallingY - 1)?.second == ".") {
+                    return dropSand(cave, fallingX, fallingY - 1, initial)
                 }
 
                 // look right

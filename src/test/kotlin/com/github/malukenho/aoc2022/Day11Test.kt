@@ -1,8 +1,9 @@
 package com.github.malukenho.aoc2022
 
 import Util.readInput
-import org.testng.Assert.assertEquals
-import org.testng.annotations.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
 
 class Day11Test {
     @Test
@@ -18,7 +19,7 @@ class Day11Test {
     }
 
     companion object {
-        private val SAMPLE_INPUT =
+        private const val SAMPLE_INPUT =
             "Monkey 0:\n" +
             "  Starting items: 79, 98\n" +
             "  Operation: new = old * 19\n" +
