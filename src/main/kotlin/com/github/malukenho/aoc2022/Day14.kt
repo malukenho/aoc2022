@@ -29,12 +29,11 @@ class Day14(val input: String) {
 
     fun part1(): Int { // @TODO("Which name better reflects the problem proposed domain?")
 
-        println(routes.rowsRange())
-        println(columns) // Create a cave
-        var cave: Cave = routes.rowsRange().map {
+        val cave: Cave = routes.rowsRange().map {
             columns.map { column -> Pair(column, ".") }.toMutableList()
         }.toMutableList()
 
+        // Draw rocks on cave
         routes.forEach { coordinates ->
             coordinates.windowed(2, 1, false).forEach {
                 val first = it.first()
@@ -63,104 +62,47 @@ class Day14(val input: String) {
             }
         }
 
-        // Sand is starting to drop from the cave
-        //     It drops at location 500
+        val sandSource = 500
+        var landed = 0
+        var fallingX = 0
+        val initial = sandSource - columns.min()
+        var fallingY = sandSource - columns.min()
 
-        val source = 500
-        var iterations = 0
-        fun dropSand(cave: Cave, fallingX: Int, fallingY: Int, initial: Int): Cave {
+        val voidStarsAt = routes.rowsRange().last
+        while (true) {
+            val down = cave.getXY(fallingX+1, fallingY)?.second ?: break
+            val downLeft = cave.getXY(fallingX+1, fallingY-1)?.second ?: break
+            val downRight = cave.getXY(fallingX+1, fallingY+1)?.second ?: break
 
-            val currentChar = cave.getXY(fallingX, fallingY)?.second
-                ?: return dropSand(cave, 0, initial, initial)
-
-            if (0 == fallingX && initial == fallingY && currentChar == "o") {
-                return cave
+            if (fallingX > voidStarsAt) {
+                break
             }
 
-            if (currentChar == ".") {
-                return dropSand(cave, fallingX + 1, fallingY, initial)
+            if (down == ".") {
+                fallingX++
+                continue
             }
 
-            // Sand is already there
-            if (currentChar == "o" || currentChar == "#") {
-                val downLeftChar = cave.getXY(fallingX, fallingY - 1)?.second
-                val downRightChar = cave.getXY(fallingX, fallingY + 1)?.second
-
-                if (downLeftChar == null && iterations > 0) {
-                    return cave
-                }
-
-                if (downLeftChar == ".") {
-                    return dropSand(cave, fallingX + 1, fallingY - 1, initial)
-                }
-
-                if (downRightChar == ".") {
-                    return dropSand(cave, fallingX + 1, fallingY + 1, initial)
-                }
-
-                if (downLeftChar == "o" && downRightChar == "o") {
-                    cave.get(fallingX - 1).set(fallingY, Pair(source, "o"))
-
-                    iterations++
-                    return dropSand(cave, 0, initial, initial)
-                }
-
-                if (downLeftChar == "#" && downRightChar == "#") {
-                    cave.get(fallingX - 1).set(fallingY, Pair(source, "o"))
-
-                    iterations++
-                    return dropSand(cave, 0, initial, initial)
-                }
-
-                // look left
-                if (downLeftChar == "o" && cave.getXY(fallingX - 1, fallingY - 1)?.second == ".") {
-                    return dropSand(cave, fallingX, fallingY - 1, initial)
-                }
-
-                if (downLeftChar == "#" && cave.getXY(fallingX + 1, fallingY - 1)?.second == ".") {
-                    return dropSand(cave, fallingX, fallingY - 1, initial)
-                }
-
-                // look right
-                if (downRightChar == "o" && cave.getXY(fallingX, fallingY + 1)?.second == ".") {
-                    cave.get(fallingX - 1).set(fallingY, Pair(source, "o"))
-
-                    iterations++
-                    return dropSand(cave, 0, initial, initial)
-                }
-
-                if (downRightChar == "#" && cave.getXY(fallingX, fallingY + 1)?.second == ".") {
-                    cave.get(fallingX).set(fallingY + 1, Pair(source, "o"))
-
-                    iterations++
-                    println("rest - downRight #")
-                    return dropSand(cave, 0, initial, initial)
-                }
+            if (downLeft == ".") {
+                fallingY--
+                continue
             }
 
-            if (currentChar == "#" || currentChar == "o") {
-                if (cave.getXY(fallingX, fallingY - 1)?.second == ".") {
-                    return dropSand(cave, fallingX, fallingY - 1, initial)
-                }
-
-                if (cave.getXY(fallingX, fallingY + 1)?.second == ".") {
-                    return dropSand(cave, fallingX, fallingY + 1, initial)
-                }
-
-                cave.get(fallingX - 1).set(fallingY, Pair(source, "o"))
-
-                iterations++
-                return dropSand(cave, 0, initial, initial)
+            if (downRight == ".") {
+                fallingY++
+                continue
             }
 
-            return cave
+            cave.get(fallingX).set(fallingY, Pair(sandSource, "o"))
+
+            landed++
+            fallingX = 0
+            fallingY = initial
+            continue
         }
 
-        cave = dropSand(cave, 0, source - columns.min(), source - columns.min())
+        //cave.show()
 
-        println("Final")
-        cave.show()
-
-        return iterations
+        return landed
     }
 }
