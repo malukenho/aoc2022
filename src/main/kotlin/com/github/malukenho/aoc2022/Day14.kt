@@ -5,7 +5,7 @@ typealias CoordinateList = MutableList<MutableList<Rocks>>
 
 typealias Cave = MutableList<MutableList<Pair<Int, String>>>
 
-fun Cave.getXY(x: Int, y: Int) = this.getOrNull(x)?.getOrNull(y)
+fun Cave.getXY(x: Int, y: Int) = this.getOrNull(y)?.getOrNull(x)
 
 fun CoordinateList.max() = this.flatMap { map -> map.map { it.first } }.max()
 fun CoordinateList.min() = this.flatMap { map -> map.map { it.first } }.min()
@@ -64,45 +64,45 @@ class Day14(val input: String) {
 
         val sandSource = 500
         var landed = 0
-        var fallingX = 0
+        var yDelta = 0
         val initial = sandSource - columns.min()
-        var fallingY = sandSource - columns.min()
+        var xDelta = initial
 
         val voidStarsAt = routes.rowsRange().last
-        while (true) {
-            val down = cave.getXY(fallingX+1, fallingY)?.second ?: break
-            val downLeft = cave.getXY(fallingX+1, fallingY-1)?.second ?: break
-            val downRight = cave.getXY(fallingX+1, fallingY+1)?.second ?: break
 
-            if (fallingX > voidStarsAt) {
-                break
+        while (true) {
+            // 1341 too high
+            val down = cave.getXY(xDelta, yDelta + 1)?.second ?: break
+            val downLeft = cave.getXY(xDelta-1, yDelta+1)?.second ?: break
+            val downRight = cave.getXY(xDelta+1, yDelta+1)?.second ?: break
+
+            if (yDelta == voidStarsAt) {
+                return landed
             }
 
             if (down == ".") {
-                fallingX++
+                yDelta++
                 continue
             }
 
             if (downLeft == ".") {
-                fallingY--
+                xDelta--
                 continue
             }
 
             if (downRight == ".") {
-                fallingY++
+                xDelta++
                 continue
             }
 
-            cave.get(fallingX).set(fallingY, Pair(sandSource, "o"))
+            cave.get(yDelta).set(xDelta, Pair(sandSource, "o"))
 
-            landed++
-            fallingX = 0
-            fallingY = initial
-            continue
+            landed += 1
+            yDelta = 0
+            xDelta = initial
         }
 
         //cave.show()
-
         return landed
     }
 }
