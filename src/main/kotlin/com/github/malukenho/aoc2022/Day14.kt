@@ -1,20 +1,15 @@
 package com.github.malukenho.aoc2022
 
-typealias Rocks = Pair<Int, Int>
-typealias CoordinateList = MutableList<MutableList<Rocks>>
+class Day14(private val input: String) {
 
-typealias Cave = MutableList<MutableList<Pair<Int, String>>>
+    private fun MutableList<MutableList<Pair<Int, String>>>.getXY(x: Int, y: Int) = this.getOrNull(y)?.getOrNull(x)
 
-fun Cave.getXY(x: Int, y: Int) = this.getOrNull(y)?.getOrNull(x)
-
-fun CoordinateList.max() = this.flatMap { map -> map.map { it.first } }.max()
-fun CoordinateList.min() = this.flatMap { map -> map.map { it.first } }.min()
-fun CoordinateList.rowsRange() = 0..this.flatMap { map -> map.map { it.second } }.max()
-
-class Day14(val input: String) {
+    private fun MutableList<MutableList<Pair<Int, Int>>>.max() = this.flatMap { map -> map.map { it.first } }.max()
+    private fun MutableList<MutableList<Pair<Int, Int>>>.min() = this.flatMap { map -> map.map { it.first } }.min()
+    private fun MutableList<MutableList<Pair<Int, Int>>>.rowsRange() = 0..this.flatMap { map -> map.map { it.second } }.max()
 
     // Read coordinates per line
-    private val routes: CoordinateList = input.split("\n").map { it ->
+    private val routes  = input.split("\n").map { it ->
         it.split(" -> ").map { that ->
             val path = that.split(",")
             Pair(path.first().toInt(), path.last().toInt())
@@ -31,7 +26,7 @@ class Day14(val input: String) {
 
     fun part1(): Int { // @TODO("Which name better reflects the problem proposed domain?")
 
-        val cave: Cave = routes.rowsRange().map {
+        val cave  = routes.rowsRange().map {
             columns.map { column -> Pair(column, ".") }.toMutableList()
         }.toMutableList()
 
@@ -112,7 +107,6 @@ class Day14(val input: String) {
             xDelta = initial
         }
 
-//        cave.show()
         return landed
     }
 }
