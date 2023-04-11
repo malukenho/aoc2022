@@ -23,6 +23,8 @@ class Day14(val input: String) {
 
     private val columns: IntRange = routes.min()..routes.max()
 
+    private val voidStartsAt = routes.maxOf { it.maxOf { a -> a.second } }
+
     private fun MutableList<MutableList<Pair<Int, String>>>.show() = this.forEach {
         println(it.joinToString("") { that -> that.second })
     }
@@ -35,15 +37,21 @@ class Day14(val input: String) {
 
         // Draw rocks on cave
         routes.forEach { coordinates ->
-            coordinates.windowed(2, 1, false).forEach {
+            coordinates.windowed(2, 1, true).forEach {
                 val first = it.first()
                 val second = it.last()
 
-                val moveDown = first.first == second.first
+                val moveDown = first.first == second.first // x
                 val moveSide = !moveDown
 
                 if (moveDown) { // 498 4..6
-                    movingDown@ for (i in first.second..second.second) {
+                    val range = if (first.second > second.second) {
+                        second.second..first.second
+                    } else {
+                        first.second..second.second
+                    }
+
+                    movingDown@ for (i in range) {
                         cave.get(i).set(first.first - columns.min(), Pair(first.first, "#"))
                     }
                 }
@@ -68,16 +76,18 @@ class Day14(val input: String) {
         val initial = sandSource - columns.min()
         var xDelta = initial
 
-        val voidStarsAt = routes.rowsRange().last
-
         while (true) {
-            // 1341 too high
-            val down = cave.getXY(xDelta, yDelta + 1)?.second ?: break
-            val downLeft = cave.getXY(xDelta-1, yDelta+1)?.second ?: break
-            val downRight = cave.getXY(xDelta+1, yDelta+1)?.second ?: break
+            val down = cave.getXY(xDelta, yDelta + 1)?.second
+            val downLeft = cave.getXY(xDelta-1, yDelta+1)?.second
+            val downRight = cave.getXY(xDelta+1, yDelta+1)?.second
 
-            if (yDelta == voidStarsAt) {
-                return landed
+            if (yDelta >= voidStartsAt) {
+                break
+            }
+
+            if (down == null || downLeft == null || downRight == null) {
+                yDelta++
+                continue
             }
 
             if (down == ".") {
@@ -102,7 +112,7 @@ class Day14(val input: String) {
             xDelta = initial
         }
 
-        //cave.show()
+//        cave.show()
         return landed
     }
 }
