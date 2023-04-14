@@ -19,4 +19,5 @@ Development occurs in language-specific directories:
 |                      Day11.hack |       | [Day11.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day11.kt) | ⭐⭐️   |
 |                      Day12.hack |       | [Day12.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day12.kt) | ⭐⭐️   |
 |                      Day13.hack |       | [Day13.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day13.kt) | ⭐⭐️   |
-|                      Day14.hack |       | [Day14.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day14.kt) | ⭐️    |
+|                      Day14.hack |       | [Day14.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day14.kt) | ⭐️⭐   |
+|                      Day15.hack |       | [Day15.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day15.kt) |       |
