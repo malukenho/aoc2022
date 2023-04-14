@@ -4,8 +4,6 @@ class Day14(private val input: String) {
 
     private fun MutableList<MutableList<Pair<Int, String>>>.getXY(x: Int, y: Int) = this.getOrNull(y)?.getOrNull(x)
 
-    private fun MutableList<MutableList<Pair<Int, Int>>>.max() = 700
-    private fun MutableList<MutableList<Pair<Int, Int>>>.min() = 300
     private fun MutableList<MutableList<Pair<Int, Int>>>.rowsRange() = 0..this.maxOf { map -> map.maxOf { it.second } }
 
     // Read coordinates per line
@@ -16,7 +14,7 @@ class Day14(private val input: String) {
         }.toMutableList()
     }.toMutableList()
 
-    private val columns: IntRange = routes.min()..routes.max()
+    private val columns = 330..670
 
     private val voidStartsAt = routes.maxOf { it.maxOf { a -> a.second } }
 
@@ -24,75 +22,36 @@ class Day14(private val input: String) {
         println(it.joinToString("") { that -> that.second })
     }
 
-    fun part1(): Int { // @TODO("Which name better reflects the problem proposed domain?")
-
-        val sandSource = 500
-        var landed = 0
-        var yDelta = 0
-        val initial = sandSource - columns.min()
-        var xDelta = initial
-
-        val cave = mapCave()
-
-        while (true) {
-            val down = cave.getXY(xDelta, yDelta + 1)?.second
-            val downLeft = cave.getXY(xDelta-1, yDelta+1)?.second
-            val downRight = cave.getXY(xDelta+1, yDelta+1)?.second
-
-            if (yDelta >= voidStartsAt) {
-                break
-            }
-
-            if (down == null || downLeft == null || downRight == null) {
-                yDelta++
-                continue
-            }
-
-            if (down == ".") {
-                yDelta++
-                continue
-            }
-
-            if (downLeft == ".") {
-                xDelta--
-                continue
-            }
-
-            if (downRight == ".") {
-                xDelta++
-                continue
-            }
-
-            cave.get(yDelta).set(xDelta, Pair(sandSource, "o"))
-
-            landed += 1
-            yDelta = 0
-            xDelta = initial
-        }
-
-        return landed
+    fun part1(): Int {
+        return dropSand(mapCave(), fun (_, yDelta, _, voidStartsAt): Boolean = yDelta >= voidStartsAt)
     }
 
     fun part2(): Int {
-
-        val sandSource = 500
-        var landed = 0
-        var yDelta = 0
-        val initial = sandSource - columns.min()
-        var xDelta = initial
-
         val cave = mapCave()
         val row = cave.get(0)
 
         cave.add(row.map { Pair(it.first, ".") }.toMutableList())
         cave.add(row.map { Pair(it.first, "#") }.toMutableList())
 
+        return dropSand(cave, fun (cave, yDelta, xDelta, _): Boolean = yDelta == 0 && cave.getXY(xDelta, yDelta)?.second == "o")
+    }
+
+    private fun dropSand(
+        cave: MutableList<MutableList<Pair<Int, String>>>,
+        predicate: (MutableList<MutableList<Pair<Int, String>>>, Int, Int, Int) -> Boolean
+    ): Int {
+        val sandSource = 500
+        var landed = 0
+        var yDelta = 0
+        val initial = sandSource - columns.min()
+        var xDelta = initial
+
         while (true) {
             val down = cave.getXY(xDelta, yDelta + 1)?.second
             val downLeft = cave.getXY(xDelta-1, yDelta+1)?.second
             val downRight = cave.getXY(xDelta+1, yDelta+1)?.second
 
-            if (yDelta == 0 && cave.getXY(xDelta, yDelta)?.second == "o") {
+            if (predicate(cave, yDelta, xDelta, voidStartsAt)) {
                 break
             }
 
