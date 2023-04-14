@@ -4,7 +4,6 @@ import Util.readInput
 
 private fun Char.toScore(): Int = if (this.isLowerCase()) this - '`' else this - '&'
 infix fun String.intersect(other: String) = this.toSet() intersect other.toSet()
-infix fun Set<Char>.intersect(other: String) = this.toSet() intersect other.toSet()
 
 class Rucksack(val items: String) {
     private val boundary = (items.length / 2) - 1
