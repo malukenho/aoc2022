@@ -86,14 +86,8 @@ fun maze() {
 
     val maze = map.map { s -> s.split("") }
 
-    val empty = ""
-    val start = "S"
-    val exit = "E"
-    val path = "."
-
     // Get the height and width of the maze:
     val height = maze.size
-    val maxWidthSoFar = maze[0].size
 
     fun printMaze(maze: List<List<String>>) {
         maze.forEach { row ->
@@ -149,7 +143,8 @@ fun maze() {
                 }
             }
         }
-        maze[y][x] = " "
+
+        maze[y][x] = " " // backtrack
 
         return false // BASE CASE
     }
