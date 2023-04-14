@@ -1,6 +1,6 @@
 package com.github.malukenho.aoc2022
 
-class Day12(val input: String) { // Trying to solve it with a BFS
+class Day12(private val input: String) { // Trying to solve it with a BFS
     private val maze = input.trim().split("\n")
         .map { xs -> xs.chunked(1).toMutableList() }
         .toMutableList()
