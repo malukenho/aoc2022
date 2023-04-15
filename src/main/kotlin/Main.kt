@@ -111,52 +111,54 @@ fun maze() {
     }
 
     fun solveMaze(
-        maze: MutableList<MutableList<String>>,
+        maze: List<List<String>>,
         x: Int,
         y: Int,
         height: Int,
-        visited: MutableSet<Pair<Int, Int>>
-    ): Boolean {
+        visited: Set<Pair<Int, Int>>
+    ): Pair<Boolean, List<List<String>>> {
         if (maze[y][x] == "E") {
-            return true // Found the exit, return true.
+            return true to maze // Found the exit, return true.
         }
 
         if (maze[y][x] == "▓") {
-            return false
+            return false to maze
         }
 
-        maze[y][x] = "." // Mark the path in the maze. 2 visited.push(String(x) + "," + String(y))
+        // Mark the path in the maze
+        val walkInMaze = maze.mapIndexed { rowY, row ->
+            row.mapIndexed { columnX, column ->
+                if (y == rowY && x == columnX) "." else column
+            }
+        }
 
-        visited.add(Pair(y, x))
+        val updatedVisited = visited + Pair(y, x)
 
-        // printMaze(maze) // Uncomment to view each forward step.
+//        printMaze(walkInMaze) // Uncomment to view each forward step.
 
-        val around = listOf(
-            Pair(y + 1, x), Pair(y - 1, x), Pair(y, x + 1), Pair(y, x - 1)
+        val adjacentPoints = listOf(
+            y + 1 to x,
+            y - 1 to x,
+            y to x + 1,
+            y to x - 1
         )
 
-        for (p in around) {
+        for (p in adjacentPoints) {
             val s = maze.getOrNull(p.first)?.getOrNull(p.second)
             if ((s != null) && !visited.contains(p)) {
-                if (solveMaze(maze, p.second, p.first, height, visited)) {
-                    return true
+                val r = solveMaze(walkInMaze, p.second, p.first, height, updatedVisited)
+                if (r.first) {
+                    return r
                 }
             }
         }
 
-        maze[y][x] = " " // backtrack
-
-        return false // BASE CASE
+        return false to maze // BASE CASE
     }
 
     val startPoint = findStart(maze)
 
-    // Mutable copy of the maze
-    val mutMaze = maze.map { row -> row.toMutableList() }.toMutableList()
+    val x = solveMaze(maze = maze, startPoint.second, startPoint.first, height, mutableSetOf())
 
-    mutMaze[startPoint.first][startPoint.second] = " " // Get rid of the 'S' from the maze.
-
-    solveMaze(maze = mutMaze, startPoint.second, startPoint.first, height, mutableSetOf())
-
-    printMaze(mutMaze)
+    printMaze(x.second)
 }
