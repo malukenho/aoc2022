@@ -2,7 +2,7 @@ package com.github.malukenho.aoc2022
 
 import Util.readInput
 
-class Day2 {
+class Day02 {
     enum class Played(val played: Int) {
         A(1), X(1),
         B(2), Y(2),

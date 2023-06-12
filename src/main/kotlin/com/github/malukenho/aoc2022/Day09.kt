@@ -2,7 +2,7 @@ package com.github.malukenho.aoc2022
 
 import kotlin.math.abs
 
-class Day9(list: List<String>) {
+class Day09(list: List<String>) {
 
     operator fun Pair<Int, Int>.plus(o: Pair<Int, Int>) = Pair(this.first + o.first, this.second + o.second)
 

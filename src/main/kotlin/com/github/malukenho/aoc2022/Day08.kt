@@ -2,7 +2,7 @@ package com.github.malukenho.aoc2022
 
 import kotlin.math.max
 
-class Day8(list: List<String>) {
+class Day08(list: List<String>) {
     private val grid = list.map {
         it.toCharArray().map { x -> x.digitToInt() }
     }

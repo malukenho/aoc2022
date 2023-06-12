@@ -1,6 +1,6 @@
 package com.github.malukenho.aoc2022
 
-class Day1(text: String) {
+class Day01(text: String) {
     private val elves: List<Int> =
         text.split("\n\n").map { elf -> elf.lines().sumOf { it.toInt() } }.sortedDescending()
 

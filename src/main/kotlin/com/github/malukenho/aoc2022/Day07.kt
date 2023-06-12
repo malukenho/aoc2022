@@ -1,6 +1,6 @@
 package com.github.malukenho.aoc2022
 
-class Day7(list: List<String>) {
+class Day07(list: List<String>) {
     private var sizes : MutableMap<String, Int> = mutableMapOf()
 
     init {
