@@ -8,14 +8,14 @@ import kotlin.test.assertEquals
 class Day9Test {
     @Test
     fun part1() {
-        assertEquals(Day9(SAMPLE_INPUT).part1(), 13)
-        assertEquals(Day9(readInput(9).lines()).part1(), 6314)
+        assertEquals(Day09(SAMPLE_INPUT).part1(), 13)
+        assertEquals(Day09(readInput(9).lines()).part1(), 6314)
     }
 
     @Test
     fun part2() {
-        assertEquals(Day9(SAMPLE_INPUT).part2(), 1)
-        assertEquals(Day9(readInput(9).lines()).part2(), 2504)
+        assertEquals(Day09(SAMPLE_INPUT).part2(), 1)
+        assertEquals(Day09(readInput(9).lines()).part2(), 2504)
     }
 
     companion object {

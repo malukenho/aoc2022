@@ -6,17 +6,17 @@ import kotlin.test.assertEquals
 
 
 class Day8Test {
-//    @Test
-//    fun part1() {
-//        assertEquals(Day8(SAMPLE_INPUT).part1(), 21)
-//        assertEquals(Day8(readInput(8).lines()).part1(), 1711)
-//    }
-//
-//    @Test
-//    fun part2() {
-//        assertEquals(Day8(SAMPLE_INPUT).part2(), 8)
-//        assertEquals(Day8(readInput(8).lines()).part2(), 301392)
-//    }
+    @Test
+    fun part1() {
+        assertEquals(Day08(SAMPLE_INPUT).part1(), 21)
+        assertEquals(Day08(readInput(8).lines()).part1(), 1711)
+    }
+
+    @Test
+    fun part2() {
+        assertEquals(Day08(SAMPLE_INPUT).part2(), 8)
+        assertEquals(Day08(readInput(8).lines()).part2(), 301392)
+    }
 
     companion object {
         private val SAMPLE_INPUT = listOf(

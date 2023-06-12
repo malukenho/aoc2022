@@ -7,12 +7,12 @@ import kotlin.test.assertEquals
 class Day7Test {
     @Test
     fun part1() {
-        assertEquals(Day7(SAMPLE_INPUT).part1(), 95437)
+        assertEquals(Day07(SAMPLE_INPUT).part1(), 95437)
     }
 
     @Test
     fun part2() {
-        assertEquals(Day7(SAMPLE_INPUT).part2(), 23352670)
+        assertEquals(Day07(SAMPLE_INPUT).part2(), 23352670)
     }
 
     companion object {

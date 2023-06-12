@@ -6,12 +6,12 @@ import kotlin.test.assertEquals
 class Day1Test {
     @Test
     fun part1() {
-        assertEquals(Day1(SAMPLE_INPUT).part1(), 24000)
+        assertEquals(Day01(SAMPLE_INPUT).part1(), 24000)
     }
 
     @Test
     fun part2() {
-        assertEquals(Day1(SAMPLE_INPUT).part2(), 45000)
+        assertEquals(Day01(SAMPLE_INPUT).part2(), 45000)
     }
 
     companion object {
