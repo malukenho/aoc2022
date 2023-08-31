@@ -6,15 +6,15 @@ Development occurs in language-specific directories:
 
 |                    [HHVM](hhvm) | stars |            [Kotlin](src/main/kotlin/com/github/malukenho/aoc2022) | stars |
 |--------------------------------:|-------|------------------------------------------------------------------:|-------|
-| [Day1.hack](hhvm/src/Day1.hack) | ⭐⭐️️  |   [Day1.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day1.kt) | ⭐⭐️   |
-| [Day2.hack](hhvm/src/day2.hack) | ⭐️    |   [Day2.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day2.kt) | ⭐     |
-|                       Day3.hack |       |   [Day3.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day3.kt) | ⭐⭐️   |
-|                       Day4.hack |       |   [Day4.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day4.kt) | ⭐⭐️   |
-|                       Day5.hack |       |   [Day5.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day5.kt) | ⭐⭐️   |
-|                       Day6.hack |       |   [Day6.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day6.kt) | ⭐⭐️   |
-|                       Day7.hack |       |   [Day7.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day7.kt) | ⭐⭐️   |
-|                       Day8.hack |       |                                                           Day8.kt |       |
-|                       Day9.hack |       |   [Day9.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day9.kt) | ⭐⭐️   |                                                       |
+| [Day1.hack](hhvm/src/Day1.hack) | ⭐⭐️️  | [Day01.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day01.kt) | ⭐⭐️   |
+| [Day2.hack](hhvm/src/day2.hack) | ⭐️    | [Day02.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day02.kt) | ⭐     |
+|                       Day3.hack |       | [Day03.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day03.kt) | ⭐⭐️   |
+|                       Day4.hack |       | [Day04.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day04.kt) | ⭐⭐️   |
+|                       Day5.hack |       | [Day05.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day05.kt) | ⭐⭐️   |
+|                       Day6.hack |       | [Day06.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day06.kt) | ⭐⭐️   |
+|                       Day7.hack |       | [Day07.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day07.kt) | ⭐⭐️   |
+|                       Day8.hack |       |                                                          Day08.kt |       |
+|                       Day9.hack |       | [Day09.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day09.kt) | ⭐⭐️   |                                                       |
 |                      Day10.hack |       | [Day10.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day10.kt) | ⭐⭐️   |
 |                      Day11.hack |       | [Day11.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day11.kt) | ⭐⭐️   |
 |                      Day12.hack |       | [Day12.kt](src/main/kotlin/com/github/malukenho/aoc2022/Day12.kt) | ⭐⭐️   |
